@@ -1,62 +1,38 @@
-// Run theses tests using Mocha
-var chai = require('chai');
-var expect = chai.expect;
-var examples = require('./examples');
+chai.should(); // invoking this function creates a "should" object on every object
+context = describe;
 
+function filter (list) {
+  return list[0];
+};
 
+/* TDD TO-DO list
+* Test:
+* ['test@test.com'] --> ['test@test.com']
+* Test:
+* ['test@test.com, 'test@test.com'] --> ['test@test.com']
+* Test:
+* [] --> []
+* Test:
+*['test(AT)test.com, 'test@test.com'] --> ['test@test.com']
+* Test:
+*['TEST(AT)TEST.COM, 'test@test.com'] --> ['test@test.com']
+* Test:
+*['TEST(DOT)TEST.COM, 'test@test.com'] --> ['test@test.com']
+*/
 
+describe ("the email list filter", function(){
 
-describe("the behavior of the code in the examples", function(){
-
-  it("calculates the average of an array", function(){
-      expect(examples.average([2,2,2])).equal(2);      
-  });
-  it("calculates the average of an array with decimals", function(){
-      expect(examples.average([7,7,9])).equal(7.666666666666667);      
-  });
-
-
-  it("calculates autoejecutable", function(){
-    var valor = (function(a, b){
-  		return a / b;
-	})(10,2);
-
-  	expect(valor).equal(5);
-
-  });
-
-  it("calculates funcion anidada", function(){
-
-    	function resta(){
-
-    		var r = function anidada(){
-
-    			return 7*2;
-    		};
-    		return r;
-    	}
-      expect(resta()()).equal(14);      
+  it("return the same array if there is no duplicates", function(){
+      expect(['test@test.com']).toEqual(filter(['test@test.com']));      
   });
 
-  it("calculates un bucle", function(){
-
-  	var array_s = ["a","b","c"], letra, concat;
-  	for (var i = 0; i<array_s.length; i++){
-
-  		letra = array_s[i];
-
-  		if (letra === "c"){
-  			concat = letra + "c";
-  		}		 
-
-  	}
-
-  	expect(concat).equal("cc");
-
+  it("returns always the same even the parameter changes", function(){
+      expect(['test2@test.com']).toEqual(filter(['test2@test.com']));      
   });
-  	
 
+  it("returns the array without duplicates", function(){
+      expect(['test@test.com']).toEqual(filter(['test@test.com','test@test.com']));      
+  });
 
 
 });
-
